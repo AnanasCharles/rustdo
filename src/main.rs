@@ -7,10 +7,11 @@ mod functions;
 
 fn main() {
     terminal::clear_term();
-    println!("{} - {}", "RustDo for your To-Do's!".bold().underline(), "Data are not persistent (yet?)");
+    println!("{}", "RustDo for your To-Do's!".bold().underline());
     println!("\n");
     
     let mut task_list = tasklist::TaskList { tasks: Vec::new() };
+    task_list.load_tasks("tasks.txt").expect("Failed to load tasks.");
 
     loop {
         task_list.view_tasks();
@@ -28,7 +29,7 @@ fn main() {
 
         match input.trim() {
             "1" => {
-                functions::add_task(&mut task_list)
+                functions::add_task(&mut task_list);
             }
             "2" => {
                 functions::remove_task(&mut task_list);
